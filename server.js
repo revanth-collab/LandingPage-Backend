@@ -23,8 +23,8 @@ const pool = mysql.createPool({
     port:process.env.DB_PORT,
     ssl: {
         ca: Buffer.from(process.env.CA_CERT, 'base64').toString('utf-8'),
-        rejectUnauthorized: true
-        // rejectUnauthorized:true
+        // rejectUnauthorized: true
+        rejectUnauthorized:false
     },
     waitForConnections: true,
     connectionLimit: 10,
@@ -33,8 +33,7 @@ const pool = mysql.createPool({
 
 // let db;
 
-const initializeDBAndServer= async () =>{
-    // try{
+// try{
     //     db= await open({
     //         filename:"contact.db",
     //         driver:sqlite3.Database
@@ -57,6 +56,8 @@ const initializeDBAndServer= async () =>{
     //         console.log(`Server running on http://localhost:${port}`);
     //     });
     // }
+
+const initializeDBAndServer= async () =>{
     try{
         const connection = await pool.getConnection();
         await connection.query(`
