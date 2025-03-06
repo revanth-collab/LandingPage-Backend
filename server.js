@@ -1,5 +1,6 @@
 const express = require("express");
-const {open} = require("sqlite");
+const fs = require('fs');
+// const {open} = require("sqlite");
 const mysql = require("mysql2/promise")
 // const sqlite3 = require("sqlite3")
 const bodyParser = require("body-parser");
@@ -22,9 +23,10 @@ const pool = mysql.createPool({
     database:process.env.DB_NAME,
     port:process.env.DB_PORT,
     ssl: {
-        ca: Buffer.from(process.env.CA_CERT, 'base64').toString('utf-8'),
+        ca: fs.readFileSync(process.env.CA_CERT_PATH),
+        rejectUnauthorized:true
+        // ca: Buffer.from(process.env.CA_CERT, 'base64').toString('utf-8'),
         // rejectUnauthorized: true
-        rejectUnauthorized:false
     },
     waitForConnections: true,
     connectionLimit: 10,
@@ -82,7 +84,7 @@ const initializeDBAndServer= async () =>{
     }
 }
 
-app.get("/",async (req,res)=>{
+app.get("/form",async (req,res)=>{
     let connection;
     try {
         connection=await pool.getConnection();
