@@ -23,7 +23,7 @@ const pool = mysql.createPool({
     database:process.env.DB_NAME,
     port:process.env.DB_PORT,
     ssl: {
-        ca: fs.readFileSync(process.env.CA_CERT_PATH),
+        ca: process.env.CA_CERT,
         rejectUnauthorized:true
         // ca: Buffer.from(process.env.CA_CERT, 'base64').toString('utf-8'),
         // rejectUnauthorized: true
