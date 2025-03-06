@@ -23,7 +23,7 @@ const pool = mysql.createPool({
     port:process.env.DB_PORT,
     ssl: {
         ca: Buffer.from(process.env.CA_CERT, 'base64').toString('utf-8'),
-        rejectUnauthorized: false
+        rejectUnauthorized: true
     },
     waitForConnections: true,
     connectionLimit: 10,
